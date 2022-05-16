@@ -15,6 +15,9 @@ class PostController extends Controller
 
     public function store(PostCreateRequest $request)
     {
-        Post::create($request->validated());
+        $post = Post::create($request->validated());
+        $post->addMediaFromRequest("image")
+            ->usingName($post->title)
+            ->toMediaCollection();
     }
 }
